@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tanttran/myshoutbox/issues"
   },
-  "homepage": "https://github.com/tanttran/myshoutbox#readme"
+  "homepage": "https://github.com/tanttran/myshoutbox#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }

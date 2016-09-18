@@ -1,0 +1,20 @@
+.feed {
+      margin-left: 100px;
+      margin-right: 100px;
+      margin-top: 100px;
+      border: 1px solid black;
+      min-height: 1000px;
+    }
+
+#background {
+  background-image: url("../image/myshoutboxmain.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+ /* width: 1500px;*/
+  height: 400px;
+}
+
+#pageTitle {
+  color: #f8f8f8;
+}
