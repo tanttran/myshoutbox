@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myShoutBox">
 <head>
   <title>myShoutBox</title>
   <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
@@ -7,20 +7,20 @@
   <script type="text/javascript" src="angular.min.js"></script>
   <script type="text/javascript" src="angular-route.js"></script>
   <script type="text/javascript" src="angular-cookies.js"></script>
-  <script src="script.js"></script>
+  <script type="text/javascript" src="script.js"></script>
 
 </head>
-<body>
+<body ng-controller="HomeController">
   <div id="background">
-  <h1 id="pageTitle">myShoutBox</h1>
   </div>
+
   <div>
+    <h1 id="pageTitle">myShoutBox</h1>
 
     <div class="row feed">
-
       <div class="col-md-4">
         User Login:
-        <br>
+        <br><br>
         <input type="text" size="30" placeholder="username">
         <br><br>
         <input type="password" size="30" placeholder="password">
@@ -29,9 +29,16 @@
       </div>
 
       <div class="col-md-8">
-        Right Side
+        <div class="shoutBox">
+          <h3 ng-repeat="shouting in shout">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            {{ shouting }}
+          </h3>
+          <br><br>
+          
+          </div>
+        </div><br>
       </div>
-    </div>
-  </body>
-  </html>
+    </body>
+    </html>
 
