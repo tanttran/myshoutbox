@@ -10,42 +10,13 @@
   <script type="text/javascript" src="script.js"></script>
 
 </head>
-<body ng-controller="HomeController">
+<body>
   <div id="background">
   </div>
-
   <div>
-    <h1 id="pageTitle">myShoutBox</h1>
-
-    <div class="row feed">
-      <div class="col-md-4">
-        User Login:
-        <br><br>
-        <input type="text" size="30" placeholder="username">
-        <br><br>
-        <input type="password" size="30" placeholder="password">
-        <br><br>
-        <button type="submit">Log in</button>
-      </div>
-
-      <div class="col-md-8">
-      <div class="newShoutSubmit">
-      <form ng-submit="submitNewShout()">
-        <input type="text" class="form-control" ng-model="newShout" placeholder="What do you want to shout today?">
-        <button class="btn" type="submit">Submit</button>
-        </form>
-      </div>
-        <div class="shoutBox">
-          <h3 ng-repeat="shouting in shouts">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            {{ shouting.text }}
-            <a href ng-click="removeShout(shouting)"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span></a>
-          </h3>
-          <br><br>
-          
-          </div>
-        </div><br>
-      </div>
-    </body>
-    </html>
+    <h1 id="pageTitle"><a href="#/">myShoutBox</a></h1>
+    <div ng-view></div>
+  </div>
+</body>
+</html>
 

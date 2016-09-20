@@ -44,7 +44,18 @@ app.put('/featuredshouts/remove', function(req, res, next){
     var shoutId = req.body.shout._id;
 
     featuredCollection.remove({_id: ObjectId(shoutId)}, {w:1}, function(err, result) {
-      
+
+      return res.send();
+    });
+  });
+});
+
+app.post('/users', function(req, res, next){
+
+
+  db.collection('users', function(err, usersCollection) {
+
+    usersCollection.insert(req.body, {w:1}, function(err) {
       return res.send();
     });
   });
