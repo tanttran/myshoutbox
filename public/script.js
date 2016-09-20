@@ -1,13 +1,18 @@
 var app = angular.module('myShoutBox', []);
 
+app.controller('HomeController', function ($scope, $http) {
 
+  $scope.submitNewShout = function() {
+    console.log($scope.newShout);
+    $http.post('/featuredshouts', {newShout:  $scope.newShout}).then(function(){
+      alert('success!');
+    });
 
-app.controller('HomeController', function ($scope) {
-  $scope.shout = [
-  'One',
-  'Two',
-  'Three',
-  'Four',
-  'Test'
-];
+  };
+
+  $http.get('/featuredshouts').then(function(response) {
+    $scope.shouts = response.data;
+    
+
+  });
 });

@@ -29,10 +29,16 @@
       </div>
 
       <div class="col-md-8">
+      <div class="newShoutSubmit">
+      <form ng-submit="submitNewShout()">
+        <input type="text" class="form-control" ng-model="newShout" placeholder="What do you want to shout today?">
+        <button class="btn" type="submit">Submit</button>
+        </form>
+      </div>
         <div class="shoutBox">
-          <h3 ng-repeat="shouting in shout">
+          <h3 ng-repeat="shouting in shouts">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            {{ shouting }}
+            {{ shouting.text }}
           </h3>
           <br><br>
           

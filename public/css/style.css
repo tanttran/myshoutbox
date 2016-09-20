@@ -24,3 +24,10 @@
   border: 1px solid #333;
   padding: 20px;
 }
+
+.newShoutSubmit {
+  border: 1px solid #333;
+  padding: 20px;
+  width: 100%;
+
+}
