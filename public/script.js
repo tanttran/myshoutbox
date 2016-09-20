@@ -22,6 +22,19 @@ app.config(function($routeProvider, $locationProvider) {
 
 app.controller('HomeController', function ($scope, $http) {
 
+  $scope.shoutSignin = function() {
+
+    $http.put('/users/login', {username: $scope.username, password: $scope.password})
+      .then(function() {
+        alert('You\'re log in');
+      }, function(err) {
+        // $scope.username = '';
+        // $scope.password = '';
+        alert('Wrong Username or Password');
+      
+      });
+  }
+
   $scope.submitNewShout = function() {
     console.log($scope.newShout);
     $http.post('/featuredshouts', {newShout:  $scope.newShout}).then(function(){

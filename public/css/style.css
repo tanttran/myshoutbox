@@ -6,20 +6,6 @@
       min-height: 1000px;
     }
 
-#background {
-  background-image: url("../image/myshoutboxmain.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
- /* width: 1500px;*/
-  height: 400px;
-}
-
-#pageTitle {
-  color: #333;
-  margin-left: 100px;
-}
-
 .shoutBox h3 {
   border: 1px solid #333;
   padding: 20px;
@@ -30,4 +16,28 @@
   padding: 20px;
   width: 100%;
 
+}
+
+#background {
+  background-color: #14c39c;
+  /*background-image: url("../image/shouticon.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;*/
+ /* width: 1500px;*/
+  height: 350px;
+}
+
+#pageTitle {
+  margin-left: 100px;
+  margin-top: 50px;
+}
+
+#shoutIcon {
+  margin-top: 120px;
+  margin-left: 100px;
+}
+
+#pageTitle a {
+  color: #fff;
 }

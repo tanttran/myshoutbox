@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
+var bcrypt = require('bcryptjs');
 
 var path = require('path');
 app.use(bodyParser.json());
@@ -50,14 +51,59 @@ app.put('/featuredshouts/remove', function(req, res, next){
   });
 });
 
+// no password encrytpion //
+
+// app.post('/users', function(req, res, next){
+//   db.collection('users', function(err, usersCollection) {
+//     var newUser = {
+//       username: req.body.username,
+//       password: req.body.password
+//     };
+//     usersCollection.insert(newUser, {w:1}, function(err) {
+//       return res.send();
+//     });
+//   });
+// });
+
+
 app.post('/users', function(req, res, next){
 
+  db.collection('users', function(err, usersCollection) {
+    bcrypt.genSalt(10, function(err, salt) {
+      console.log(salt);
+      bcrypt.hash(req.body.password, salt, function(err, hash) {
+        console.log(hash);
+        var newUser = {
+          username: req.body.username,
+          password: hash
+        };
+        usersCollection.insert(newUser, {w:1}, function(err) {
+          return res.send();
+        });
+      });
+    });
+
+    
+  });
+});
+
+app.put('/users/login', function(req, res, next){
+  console.log(req.body);
 
   db.collection('users', function(err, usersCollection) {
 
-    usersCollection.insert(req.body, {w:1}, function(err) {
-      return res.send();
+    usersCollection.findOne({username: req.body.username}, function(err, user) {
+
+      bcrypt.compare(req.body.password, user.password, function(err, result){
+        if(result) {
+          return res.send();
+        } else {
+          return res.status(400).send
+        }
+      });
+
     });
+    
   });
 });
 

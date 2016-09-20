@@ -1,14 +1,17 @@
 <div class="row feed">
   <div class="col-md-4">
     User Login:
+    <form ng-submit="shoutSignin()">
     <br><br>
-    <input type="text" size="30" placeholder="username">
+    <input type="text" size="30" placeholder="username" ng-model="username">
     <br><br>
-    <input type="password" size="30" placeholder="password">
+    <input type="password" size="30" placeholder="password" ng-model="password">
     <br><br>
-    <button type="submit">Log in</button>
+    <button class="btn" type="submit">Log in</button>
+    </form>
     <br><br>
     <a href="#/signup">Not a member?  Signup</a>
+
   </div>
 
   <div class="col-md-8">
