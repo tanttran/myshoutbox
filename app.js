@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectId;
 
 var path = require('path');
 app.use(bodyParser.json());
@@ -37,6 +38,18 @@ app.post('/featuredshouts', function(req, res, next){
     });
   });
 });
+
+app.put('/featuredshouts/remove', function(req, res, next){
+  db.collection('featured', function(err, featuredCollection) {
+    var shoutId = req.body.shout._id;
+
+    featuredCollection.remove({_id: ObjectId(shoutId)}, {w:1}, function(err, result) {
+      
+      return res.send();
+    });
+  });
+});
+
 
 app.listen(1337, function (){
   console.log('app is running on port 1337');

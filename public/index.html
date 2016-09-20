@@ -39,6 +39,7 @@
           <h3 ng-repeat="shouting in shouts">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             {{ shouting.text }}
+            <a href ng-click="removeShout(shouting)"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span></a>
           </h3>
           <br><br>
           
