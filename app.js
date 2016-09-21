@@ -4,9 +4,13 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 var bcrypt = require('bcryptjs');
+var jwt = require('jwt-simple');
 
 var path = require('path');
 app.use(bodyParser.json());
+
+
+var JWT_SECRET = 'shoutBox';
 
 var db = null;
 MongoClient.connect("mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
@@ -88,6 +92,7 @@ app.post('/users', function(req, res, next){
 });
 
 app.put('/users/login', function(req, res, next){
+  
   console.log(req.body);
 
   db.collection('users', function(err, usersCollection) {
@@ -96,7 +101,9 @@ app.put('/users/login', function(req, res, next){
 
       bcrypt.compare(req.body.password, user.password, function(err, result){
         if(result) {
-          return res.send();
+          var mytoken = jwt.encode(user, JWT_SECRET);
+
+          return res.json({token: mytoken});
         } else {
           return res.status(400).send
         }
