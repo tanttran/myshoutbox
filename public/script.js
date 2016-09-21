@@ -29,8 +29,6 @@ app.run(function($rootScope, $cookies) {
   }
 });
 
-
-
 app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) {
 
   $scope.myShoutLogin = function() {
@@ -51,7 +49,12 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
       });
   };
 
-  
+  $scope.logout = function() {
+    $cookies.remove('token');
+    $cookies.remove('currentUser');
+    $rootScope.token = null;
+    $rootScope.currentUser = null;
+  };
 
   $scope.submitNewShout = function() {
     console.log($scope.newShout);

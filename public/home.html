@@ -13,7 +13,12 @@
       <br><br>
       <a href="#/signup">Not a member?  Signup</a>
     </div>
-    
+    <div ng-show="currentUser">
+      <h4>Hello, {{ currentUser }}</h4>
+      <br><br>
+      <a href ng-click="logout()">Logout</a>
+    </div>
+  </div>
 
   <div class="col-md-8">
     <div class="newShoutSubmit">
