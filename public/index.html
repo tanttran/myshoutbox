@@ -10,15 +10,51 @@
   <script type="text/javascript" src="script.js"></script>
 
 </head>
-<body>
+<body ng-controller="HomeController">
   <div id="background">
     <image id="shoutIcon" src="image/shouticonfinal.png">
-    <h1 id="pageTitle"><a href="#/">myShoutBox</a></h1>
-  </div>
-  <div>
-    
+      <h1 id="pageTitle"><a href="#/">myShoutBox</a></h1>
+    </div>
+    <div class="menuBar">
+
+
+
+      <div class="col-md-2 col-md-offset-3 category">
+        <div class="categoryText">
+          <p>Featured</p>
+        </div>
+      </div>
+
+      <div class="col-md-2 category">
+        <div class="categoryText">
+          <p>Sports</p>
+        </div>
+      </div>
+
+      <div class="col-md-2 category">
+        <div class="categoryText">
+          <p>Music</p>
+        </div>
+      </div>
+
+
+      <div class="col-md-3" ng-hide="currentUser">
+      <div class="logoutText">
+          <a href="#/">Login</a>
+        </div>
+      </div>
+
+      <div class="col-md-3" ng-show="currentUser">
+        <div class="logoutText">
+          <a href ng-click="logout()">Logout</a>
+        </div>
+      </div>
+      
+
+
+
+    </div> 
     <div ng-view></div>
-  </div>
-</body>
-</html>
+  </body>
+  </html>
 

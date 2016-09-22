@@ -1,40 +1,52 @@
-<div class="row feed">
-  <div class="col-md-4">
+<div class="row">
+  <div class="col-md-4" id="loginSection">
     <div ng-hide="currentUser">
-      <h4>User Login:</h4>
-      <form ng-submit="myShoutLogin()">
+      <div class="loginArea">
+        <h4>Login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></h4>
+
+        <form ng-submit="myShoutLogin()">
+          <br><br>
+          <div class="input-group">
+            <input type="text" class="form-control" size="30" placeholder="username" ng-model="username">
+          </div>
+          <br><br>
+          <div class="input-group">
+            <input type="password" class="form-control" size="30" placeholder="password" ng-model="password">
+          </div>
+          <br> 
+          <button class="btn btn-primary" id="loginButton" type="submit">Log in</button>
+        </form>
         <br><br>
-        <input type="text" size="30" placeholder="username" ng-model="username">
-        <br><br>
-        <input type="password" size="30" placeholder="password" ng-model="password">
-        <br><br>
-        <button class="btn" type="submit">Log in</button>
-      </form>
-      <br><br>
-      <a href="#/signup">Not a member?  Signup</a>
+        <a href="#/signup">Not a member?  Signup</a>
+      </div>
     </div>
-    <div ng-show="currentUser">
+    <div ng-show="currentUser" class="loginArea">
       <h4>Hello, {{ currentUser }}</h4>
-      <br><br>
-      <a href ng-click="logout()">Logout</a>
     </div>
   </div>
 
-  <div class="col-md-8">
-    <div class="newShoutSubmit">
-      <form ng-submit="submitNewShout()">
-        <input type="text" class="form-control" ng-model="newShout" placeholder="What do you want to shout today?">
-        <button class="btn" type="submit">Submit</button>
-      </form>
-    </div>
-    <div class="shoutBox">
-      <h3 ng-repeat="shouting in shouts">
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-        {{ shouting.text }}
-        <a href ng-click="removeShout(shouting)"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span></a>
-        <br>
-        <small>{{ shouting.username }}</small>
-      </h3>
+  <div class="col-md-8" id="shoutSection">
+
+    <div class="shoutArea">
+      <div class="newShoutSubmit" ng-show="currentUser">
+        <form ng-submit="submitNewShout()">
+        <div>
+          <input type="text" class="form-control" ng-model="newShout" placeholder="What do you want to shout today?">
+          </div>
+          <br>
+          <button class="btn btn-primary btn-lg center-block" type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div class="shoutBox">
+        <h3 ng-repeat="shouting in shouts">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          {{ shouting.text }}
+          <a href ng-click="removeShout(shouting)"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span></a>
+          <br>
+          <small>{{ shouting.username }}</small>
+        </h3>
+      </div>
     </div>
   </div>
 </div>

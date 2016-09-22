@@ -1,10 +1,10 @@
 .feed {
-      margin-left: 100px;
-      margin-right: 100px;
-      margin-top: 100px;
-      /*border: 1px solid black;*/
-      min-height: 1000px;
-    }
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 100px;
+  /*border: 1px solid black;*/
+  min-height: 1000px;
+}
 
 .shoutBox h3 {
   border: 1px solid #333;
@@ -18,13 +18,84 @@
 
 }
 
+.menuBar {
+  height: 75px;
+  background-color: #ffffff;
+  border: 1px solid #e1e8ed;
+}
+
+.loginArea {
+  margin-left: 100px;
+  /*margin-right: 100px;*/
+  margin-top: 100px;
+}
+
+.shoutArea {
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 100px;
+}
+
+.category {
+  border-right: 1px solid #e1e8ed;
+  border-left: 1px solid #e1e8ed;
+  height: 75px;
+  cursor: pointer;
+
+}
+
+.category:hover {
+  border-bottom: 10px solid #14c39c;
+  
+}
+
+
+.categoryText p {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 20px;
+  
+}
+
+.input-group {
+  width: 300px;
+}
+
+
+#logoutSection {
+  width: 200px;
+  height: 75px;
+}
+
+.logoutText {
+  margin-top: 20px;
+  margin-left: 250px;
+  font-size: 20px;
+  margin-right: 100px;
+}
+
+#musicText {
+
+}
+
+#loginSection {
+  background-color: #f5f8fa;
+  min-height: 1000px;
+}
+
+#shoutSection {
+  background-color: #f5f8fa;
+  min-height: 1000px;
+}
+
 #background {
   background-color: #14c39c;
   /*background-image: url("../image/shouticon.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;*/
- /* width: 1500px;*/
+  /* width: 1500px;*/
   height: 350px;
 }
 
@@ -41,3 +112,8 @@
 #pageTitle a {
   color: #fff;
 }
+
+#loginButton {
+  margin-left: 90px;
+}
+
