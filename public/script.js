@@ -40,7 +40,6 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
       $cookies.put('currentUser', $scope.username);
       $rootScope.token = res.data.token
       $rootScope.currentUser = $scope.username;
-      alert('You\'re log in');
     }, function(err) {
         // $scope.username = '';
         // $scope.password = '';
@@ -54,11 +53,17 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
     $cookies.remove('currentUser');
     $rootScope.token = null;
     $rootScope.currentUser = null;
+    $scope.username = '';
+    $scope.password = '';
   };
 
   $scope.submitNewShout = function() {
     console.log($scope.newShout);
-    $http.post('/featuredshouts', {newShout:  $scope.newShout}).then(function(){
+    $http.post('/featuredshouts', 
+      {newShout:  $scope.newShout}, 
+      {headers: {
+        'authorization': $rootScope.token
+      }}).then(function(){
       getShout();
       $scope.newShout = '';
     });
@@ -66,7 +71,11 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
   };
 
   $scope.removeShout = function(deleteShout) {
-    $http.put('/featuredshouts/remove', {shout: deleteShout}).then(function(){
+    $http.put('/featuredshouts/remove', 
+      {shout: deleteShout},
+      {headers: {
+        'authorization': $rootScope.token
+      }}).then(function() {
       getShout();
     });
   };
