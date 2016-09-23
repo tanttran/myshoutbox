@@ -9,11 +9,13 @@
 .shoutBox h3 {
   border: 1px solid #333;
   padding: 20px;
+  background-color: #f5f8fa;
 }
 
 .newShoutSubmit {
-  border: 1px solid #333;
-  padding: 20px;
+  /*border: 1px solid #333;*/
+  padding-top: 20px;
+  padding-bottom: 20px;
   width: 100%;
 
 }
@@ -25,6 +27,7 @@
 }
 
 .loginArea {
+
   margin-left: 100px;
   /*margin-right: 100px;*/
   margin-top: 100px;
@@ -62,10 +65,15 @@
   width: 300px;
 }
 
+.userWelcome {
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+}
 
-#logoutSection {
-  width: 200px;
-  height: 75px;
+.shoutSubmitBox {
+  height: 60px;
+  font-size: 20px;
 }
 
 .logoutText {
@@ -75,45 +83,103 @@
   margin-right: 100px;
 }
 
+.signupSection {
+  background-image: url("../image/signinbg.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 1000px;
+}
+
+.featuredSection {
+  background-image: url("../image/loginbackground.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 1000px;
+}
+
+.signupLine {
+  border-bottom: 1px solid #ffffff;
+  width: 300px;
+}
+
+.loginTitle {
+  color: #ffffff;
+}
+
+#joinToday {
+  margin-top: 100px;
+  color: #ffffff;
+}
+
+#signupUsername {
+  margin-left: 720px;
+}
+
+#signupPassword {
+  margin-left: 720px;
+}
+
+#signupEmail {
+  margin-left: 720px;
+}
+
+#signupButton {
+  margin-left: 720px;
+}
+
+#logoutSection {
+  width: 200px;
+  height: 75px;
+}
+
 #musicText {
 
 }
 
 #loginSection {
-  background-color: #f5f8fa;
+  /*background-color: #f5f8fa;*/
   min-height: 1000px;
 }
 
 #shoutSection {
-  background-color: #f5f8fa;
+  /*background-color: #f5f8fa;*/
   min-height: 1000px;
 }
 
 #background {
-  background-color: #14c39c;
-  /*background-image: url("../image/shouticon.png");
+  /*background-color: #14c39c;*/
+  background-image: url("../image/mainbg.jpg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;*/
+  background-size: cover;
   /* width: 1500px;*/
   height: 350px;
 }
 
 #pageTitle {
-  margin-left: 100px;
-  margin-top: 50px;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 #shoutIcon {
-  margin-top: 120px;
-  margin-left: 100px;
+  margin-top: 30px;
+  margin-left: 170px;
 }
 
 #pageTitle a {
+  margin-top: 120px;
+  margin-left: 100px;
+  font-size: 44px;
   color: #fff;
 }
 
 #loginButton {
   margin-left: 90px;
+}
+
+#notmember {
+  color: #ffffff;
 }
 
