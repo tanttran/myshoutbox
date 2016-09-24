@@ -41,7 +41,7 @@
 
   <div class="col-md-8" id="shoutSection">
     <div class="shoutArea">
-      <div class="shoutBox" ng-repeat="shouting in shouts" ng-class="{ 'alternateColorOne' : $even }">
+      <div class="shoutBox" ng-repeat="shouting in shouts | orderBy:''" ng-class="{ 'alternateColorOne' : $even }">
 
         <span class="glyphicon glyphicon-user user-icon" aria-hidden="true"></span>
         <span class="shoutingText">{{ shouting.text }}</span>
@@ -49,6 +49,7 @@
         <a href ng-click="removeShout(shouting)"><span class="glyphicon glyphicon-remove user-icon pull-right" aria-hidden="true"></span></a>
         <br>
         {{ shouting.username }}
+       <!--  {{ $index }} -->
         
       </div>
     </div>

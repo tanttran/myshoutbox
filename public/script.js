@@ -62,6 +62,11 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
   };
 
   $scope.submitNewShout = function() {
+    if ($scope.newShout.length < 1) {
+      return alert('shouts cannot be blank');
+
+    }
+
     console.log($scope.newShout);
     $http.post('/featuredshouts', 
       {newShout:  $scope.newShout}, 
@@ -70,6 +75,24 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
       }}).then(function(){
       getShout();
       $scope.newShout = '';
+    });
+
+  };
+
+  $scope.submitSportsShout = function() {
+    if ($scope.sportsShout.length < 1) {
+      return alert('shouts cannot be blank');
+
+    }
+
+    console.log($scope.sportsShout);
+    $http.post('/sportsshouts', 
+      {sportsShout:  $scope.sportsShout}, 
+      {headers: {
+        'authorization': $rootScope.token
+      }}).then(function(){
+      getSportsShout();
+      $scope.sportsShout = '';
     });
 
   };
@@ -84,6 +107,16 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
     });
   };
 
+  $scope.removeSportsShout = function(deleteShout) {
+    $http.put('/sportsshouts/remove', 
+      {shout: deleteShout},
+      {headers: {
+        'authorization': $rootScope.token
+      }}).then(function() {
+      getSportsShout();
+    });
+  };
+
   function getShout(){
     $http.get('/featuredshouts').then(function(response) {
       $scope.shouts = response.data;
@@ -93,8 +126,17 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
 
   getShout();
 
-  
+  function getSportsShout(){
+  $http.get('/sportsshouts').then(function(response) {
+      $scope.sports = response.data;
+
+    });
+  }
+
+  getSportsShout();
+
 });
+
 
 app.controller('SignupController', function ($scope, $http) {
   console.log('You\'re ready to signup');

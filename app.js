@@ -5,32 +5,70 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 var bcrypt = require('bcryptjs');
 var jwt = require('jwt-simple');
+var morgan = require('morgan');
+var mongoose = require('mongoose');
+
 
 var path = require('path');
 app.use(bodyParser.json());
 
+app.use(morgan(':method :url :response-time'));
+// app.use(morgan('combined'));
+
 
 var JWT_SECRET = 'shoutBox';
 
+
+
 var db = null;
-MongoClient.connect("mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
+MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
   if(!err) {
     console.log("MONGODB connected");
     db = dbconn;
   }
 });
 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox");
+
+var Featured = mongoose.model('featured', { 
+  text: String,
+  user: String,
+  username: String
+});
+
+var Sports = mongoose.model('sport', { 
+  text: String,
+  user: String,
+  username: String
+});
+
+var Music = mongoose.model('music', { 
+  text: String,
+  user: String,
+  username: String
+});
+
 app.use(express.static(__dirname + '/public'));
 
 
 app.get('/featuredshouts', function(req, res, next) {
-  db.collection('featured', function(err, featuredCollection) {
+  db.collection('featureds', function(err, featuredCollection) {
     featuredCollection.find().toArray(function(err, featured) {
       console.log(featured);
       return res.json(featured);
     });
   });
-}); 
+});
+
+
+app.get('/sportsshouts', function(req, res, next) {
+  db.collection('sports', function(err, sportsCollection) {
+    sportsCollection.find().toArray(function(err, featured) {
+      console.log(featured);
+      return res.json(featured);
+    });
+  });
+});  
 
 app.post('/featuredshouts', function(req, res, next){
 
@@ -38,18 +76,61 @@ app.post('/featuredshouts', function(req, res, next){
   var user = jwt.decode(token, JWT_SECRET);
 
   console.log(token);
+  console.log(req.body);
 
-  db.collection('featured', function(err, featuredCollection) {
-    var newShout = {
+  // db.collection('featured', function(err, featuredCollection) {
+    
+    var newFeatured = new Featured({ 
       text: req.body.newShout,
       user: user._id,
-      username: user.username
-    };
+      username: user.username 
+    });
 
-    featuredCollection.insert(newShout, {w:1}, function(err) {
+
+    // var newShout = {
+    //   text: req.body.newShout,
+    //   user: user._id,
+    //   username: user.username
+    // };
+
+    if (req.body.newShout.length < 1) {
+      return res.status(400).send('Shouts cannot be blank');
+    }
+
+    newFeatured.save(function(err) {
       return res.send();
     });
-  });
+
+    // featuredCollection.insert(newShout, {w:1}, function(err) {
+    //   return res.send();
+    // });
+  // });
+
+});
+
+app.post('/sportsshouts', function(req, res, next){
+
+  var token = req.headers.authorization;
+  var user = jwt.decode(token, JWT_SECRET);
+
+  console.log(token);
+  console.log(req.body);
+    
+    var newSport = new Sports({ 
+      text: req.body.sportsShout,
+      user: user._id,
+      username: user.username 
+    });
+
+
+    if (req.body.sportsShout.length < 1) {
+      return res.status(400).send('Shouts cannot be blank');
+    }
+
+    newSport.save(function(err) {
+      return res.send();
+    });
+
 });
 
 app.put('/featuredshouts/remove', function(req, res, next){
@@ -57,10 +138,25 @@ app.put('/featuredshouts/remove', function(req, res, next){
   var token = req.headers.authorization;
   var user = jwt.decode(token, JWT_SECRET);
 
-  db.collection('featured', function(err, featuredCollection) {
+  db.collection('featureds', function(err, featuredCollection) {
     var shoutId = req.body.shout._id;
 
     featuredCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
+
+      return res.send();
+    });
+  });
+});
+
+app.put('/sportsshouts/remove', function(req, res, next){
+
+  var token = req.headers.authorization;
+  var user = jwt.decode(token, JWT_SECRET);
+
+  db.collection('sports', function(err, sportsCollection) {
+    var shoutId = req.body.shout._id;
+
+    sportsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
 
       return res.send();
     });

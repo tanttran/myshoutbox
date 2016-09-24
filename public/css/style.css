@@ -15,7 +15,7 @@
 }
 
 .alternateColorOne {
-  background-color: #7ac3f6;
+  background-color: #ddd;
 }
 
 .user-icon {
@@ -56,8 +56,6 @@
 
 .naviList {
   padding-right: 45px;
-  border-right: 1px solid;
-  border-left: 1px solid;
 }
 
 
