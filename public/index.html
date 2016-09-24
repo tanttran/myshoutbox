@@ -12,48 +12,49 @@
 </head>
 <body ng-controller="HomeController">
   <div id="background">
+    <div class="pull-right" ng-hide="currentUser">
+      <div class="logoutText">
+        <a href="#/">Login</a>
+      </div>
+    </div>
+
+    <div class="pull-right" ng-show="currentUser">
+      <div class="logoutText">
+      <a href="#/" ng-click="logout()">Logout</a>
+      </div>
+    </div>
     <image id="shoutIcon" src="image/shouticonfinal.png">
       <h1 id="pageTitle"><a href="#/">myShoutBox</a></h1>
     </div>
-    <div class="menuBar">
 
-
-
-      <div class="col-md-2 col-md-offset-3 category">
-        <div class="categoryText">
-          <p>Featured</p>
-        </div>
+    <!-- <div class="menuBar">
+    <div class="myNavi">
+      <ul class="list-inline">
+        <li class="category"><a class="categoryText" id="featuredNav" href="#/">Featured</a></li>
+        <li class="category"><a class="categoryText" id="sportsNav" href="#/sports">Sports</a></li>
+        <li class="category"><a class="categoryText" id="musicNav" href="#/music">Music</a></li>
+      </ul>
       </div>
-
-      <div class="col-md-2 category">
-        <div class="categoryText">
-          <p>Sports</p>
-        </div>
+    </div>  -->
+    
+    <div class="navbar-default" id="" style="height: 75px" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
       </div>
-
-      <div class="col-md-2 category">
-        <div class="categoryText">
-          <p>Music</p>
-        </div>
+      <div class="navbar-right">
+      <ul class="nav navbar-nav" id="navbarSelect">
+        <li class="text-center naviList"><a class="navText" href="#/">Featured</a></li>
+        <li class="text-center naviList"><a class="navText" href="#/">Sports</a></li>
+        <li class="text-center naviList"><a class="navText" id="musicNav" href="#/">Music</a></li>
+      </ul>
       </div>
+    </div>
+  
 
-
-      <div class="col-md-3" ng-hide="currentUser">
-      <div class="logoutText">
-          <a href="#/">Login</a>
-        </div>
-      </div>
-
-      <div class="col-md-3" ng-show="currentUser">
-        <div class="logoutText">
-          <a href ng-click="logout()">Logout</a>
-        </div>
-      </div>
-      
-
-
-
-    </div> 
     <div ng-view></div>
   </body>
   </html>

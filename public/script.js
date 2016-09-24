@@ -10,6 +10,10 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'signup.html',
     controller: 'SignupController',
   })
+  .when('/sports', {
+    templateUrl: 'sports.html',
+    controller: 'HomeController',
+  })
       // .when('/404', {
       //   templateUrl: '404.html'
       // })

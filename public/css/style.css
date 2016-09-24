@@ -6,10 +6,25 @@
   min-height: 1000px;
 }
 
-.shoutBox h3 {
+.shoutBox {
   border: 1px solid #333;
   padding: 20px;
-  background-color: #f5f8fa;
+  background-color: #ffffff;
+  width: 100%;
+  margin-top: 25px;
+}
+
+.alternateColorOne {
+  background-color: #7ac3f6;
+}
+
+.user-icon {
+  font-size: 24px;
+  padding-right: 5px;
+}
+
+.shoutingText {
+  font-size: 26px;
 }
 
 .newShoutSubmit {
@@ -18,12 +33,6 @@
   padding-bottom: 20px;
   width: 100%;
 
-}
-
-.menuBar {
-  height: 75px;
-  background-color: #ffffff;
-  border: 1px solid #e1e8ed;
 }
 
 .loginArea {
@@ -39,25 +48,26 @@
   margin-top: 100px;
 }
 
-.category {
-  border-right: 1px solid #e1e8ed;
-  border-left: 1px solid #e1e8ed;
-  height: 75px;
-  cursor: pointer;
+
+.naviList:hover {
+  border-bottom: 5px solid #14c39c;
 
 }
 
-.category:hover {
-  border-bottom: 10px solid #14c39c;
-  
+.naviList {
+  padding-right: 45px;
+  border-right: 1px solid;
+  border-left: 1px solid;
 }
 
 
-.categoryText p {
+.navText {
   font-weight: bold;
   font-size: 24px;
   text-align: center;
   margin-top: 20px;
+  padding-right: 60px;
+  padding-left: 60px;
   
 }
 
@@ -108,6 +118,15 @@
   color: #ffffff;
 }
 
+#musicNav {
+  padding-right: 75px;
+}
+
+#featuredNav {
+  
+  height: 75px;
+}
+
 #joinToday {
   margin-top: 100px;
   color: #ffffff;
@@ -127,6 +146,7 @@
 
 #signupButton {
   margin-left: 720px;
+  background-color: #f5f8fa;
 }
 
 #logoutSection {
