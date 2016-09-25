@@ -52,8 +52,8 @@ app.use(express.static(__dirname + '/public'));
 
 
 app.get('/featuredshouts', function(req, res, next) {
-  db.collection('featureds', function(err, featuredCollection) {
-    featuredCollection.find().toArray(function(err, featured) {
+  db.collection('featureds', function(err, featuredsCollection) {
+    featuredsCollection.find().toArray(function(err, featured) {
       console.log(featured);
       return res.json(featured);
     });
@@ -63,12 +63,21 @@ app.get('/featuredshouts', function(req, res, next) {
 
 app.get('/sportsshouts', function(req, res, next) {
   db.collection('sports', function(err, sportsCollection) {
-    sportsCollection.find().toArray(function(err, featured) {
-      console.log(featured);
-      return res.json(featured);
+    sportsCollection.find().toArray(function(err, sports) {
+      console.log(sports);
+      return res.json(sports);
     });
   });
-});  
+});
+
+app.get('/musicshouts', function(req, res, next) {
+  db.collection('musics', function(err, musicsCollection) {
+    musicsCollection.find().toArray(function(err, music) {
+      console.log(music);
+      return res.json(music);
+    });
+  });
+});    
 
 app.post('/featuredshouts', function(req, res, next){
 
@@ -133,6 +142,31 @@ app.post('/sportsshouts', function(req, res, next){
 
 });
 
+app.post('/musicshouts', function(req, res, next){
+
+  var token = req.headers.authorization;
+  var user = jwt.decode(token, JWT_SECRET);
+
+  console.log(token);
+  console.log(req.body);
+    
+    var newMusic = new Music({ 
+      text: req.body.musicShout,
+      user: user._id,
+      username: user.username 
+    });
+
+
+    if (req.body.musicShout.length < 1) {
+      return res.status(400).send('Shouts cannot be blank');
+    }
+
+    newMusic.save(function(err) {
+      return res.send();
+    });
+
+});
+
 app.put('/featuredshouts/remove', function(req, res, next){
 
   var token = req.headers.authorization;
@@ -157,6 +191,22 @@ app.put('/sportsshouts/remove', function(req, res, next){
     var shoutId = req.body.shout._id;
 
     sportsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
+
+      return res.send();
+    });
+  });
+});
+
+
+app.put('/musicshouts/remove', function(req, res, next){
+
+  var token = req.headers.authorization;
+  var user = jwt.decode(token, JWT_SECRET);
+
+  db.collection('musics', function(err, musicsCollection) {
+    var shoutId = req.body.shout._id;
+
+    musicsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
 
       return res.send();
     });

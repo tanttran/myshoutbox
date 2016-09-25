@@ -1,0 +1,57 @@
+<div class="row featuredSection">
+  <div class="col-md-4" id="loginSection">
+
+    <div ng-hide="currentUser">
+      <div class="loginArea">
+        <h4 class="loginTitle">Login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></h4>
+
+        <form ng-submit="myShoutLogin()">
+          <br><br>
+          <div class="input-group">
+            <input type="text" class="form-control" size="30" placeholder="username" ng-model="username">
+          </div>
+          <br><br>
+          <div class="input-group">
+            <input type="password" class="form-control" size="30" placeholder="password" ng-model="password">
+          </div>
+          <br> 
+          <button class="btn btn-default" id="loginButton" type="submit">Log in</button>
+        </form>
+        <br><br>
+        <div class="signupLine">
+        </div>
+        <br>
+        <a id="notmember" href="#/signup">Not a member?  Signup</a>
+      </div>
+    </div>
+
+    <div ng-show="currentUser" class="loginArea">
+      <p class="userWelcome">Hello, {{ currentUser }}</p>
+      <div class="newMusicShout" ng-show="currentUser">
+        <form ng-submit="submitMusicShout()">
+          <div>
+            <input type="text" class="form-control shoutSubmitBox" ng-model="musicShout" placeholder="What do you want to shout in music today?">
+          </div>
+          <br>
+          <button class="btn btn-default btn-lg center-block" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div ng-show="currentUser" class="col-md-8" id="shoutSection">
+    <div class="shoutArea">
+      <div class="shoutBox" ng-repeat="musical in music" ng-class="{ 'alternateColorOne' : $even }">
+
+        <span class="glyphicon glyphicon-user user-icon" aria-hidden="true"></span>
+        <span class="shoutingText">{{ musical.text }}</span>
+
+        <a href ng-click="removeMusicShout(musical)"><span class="glyphicon glyphicon-remove user-icon pull-right" aria-hidden="true"></span></a>
+        <br>
+        {{ musical.username }}
+      
+        
+      </div>
+    </div>
+  </div>
+</div>

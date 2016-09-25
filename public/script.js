@@ -14,6 +14,10 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'sports.html',
     controller: 'HomeController',
   })
+  .when('/music', {
+    templateUrl: 'music.html',
+    controller: 'HomeController',
+  })
       // .when('/404', {
       //   templateUrl: '404.html'
       // })
@@ -97,6 +101,24 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
 
   };
 
+  $scope.submitMusicShout = function() {
+    if ($scope.musicShout.length < 1) {
+      return alert('shouts cannot be blank');
+
+    }
+
+    console.log($scope.musicShout);
+    $http.post('/musicshouts', 
+      {musicShout:  $scope.musicShout}, 
+      {headers: {
+        'authorization': $rootScope.token
+      }}).then(function(){
+      getMusicShout();
+      $scope.musicShout = '';
+    });
+
+  };
+
   $scope.removeShout = function(deleteShout) {
     $http.put('/featuredshouts/remove', 
       {shout: deleteShout},
@@ -117,6 +139,16 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
     });
   };
 
+  $scope.removeMusicShout = function(deleteShout) {
+    $http.put('/musicshouts/remove', 
+      {shout: deleteShout},
+      {headers: {
+        'authorization': $rootScope.token
+      }}).then(function() {
+      getMusicShout();
+    });
+  };
+
   function getShout(){
     $http.get('/featuredshouts').then(function(response) {
       $scope.shouts = response.data;
@@ -134,6 +166,15 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
   }
 
   getSportsShout();
+
+  function getMusicShout(){
+  $http.get('/musicshouts').then(function(response) {
+      $scope.music = response.data;
+
+    });
+  }
+
+  getMusicShout();
 
 });
 
