@@ -21,14 +21,14 @@ var JWT_SECRET = 'shoutBox';
 
 
 var db = null;
-MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
+MongoClient.connect(process.env.MONGODB_URI || "mongodb://heroku_w14jv4tx:ru9k9bcfssn3ub3g28jr8lp27n@ds041526.mlab.com:41526/heroku_w14jv4tx", function(err, dbconn) {
   if(!err) {
     console.log("MONGODB connected");
     db = dbconn;
   }
 });
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku_w14jv4tx:ru9k9bcfssn3ub3g28jr8lp27n@ds041526.mlab.com:41526/heroku_w14jv4tx");
 
 var Featured = mongoose.model('featured', { 
   text: String,
