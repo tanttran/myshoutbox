@@ -299,8 +299,6 @@ app.put('/users/login', function(req, res, next){
 //   });
 // });
 
+var port = process.env.PORT || 1337;
 
-app.listen(1337, function (){
-  console.log('app is running on port 1337');
-
-});
+app.listen(port);
