@@ -49,7 +49,7 @@
         <a href ng-click="removeSportsShout(sporting)"><span class="glyphicon glyphicon-remove user-icon pull-right" aria-hidden="true"></span></a>
         <br>
         {{ sporting.username }}
-       
+        {{ sporting.created | date: 'MMM dd, yyyy h:mm a' }}
         
       </div>
     </div>

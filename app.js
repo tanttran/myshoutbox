@@ -21,62 +21,88 @@ var JWT_SECRET = 'shoutBox';
 
 
 var db = null;
-MongoClient.connect(process.env.MONGODB_URI || "mongodb://heroku_w14jv4tx:ru9k9bcfssn3ub3g28jr8lp27n@ds041526.mlab.com:41526/heroku_w14jv4tx", function(err, dbconn) {
+MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
   if(!err) {
     console.log("MONGODB connected");
     db = dbconn;
   }
 });
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku_w14jv4tx:ru9k9bcfssn3ub3g28jr8lp27n@ds041526.mlab.com:41526/heroku_w14jv4tx");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox");
 
 var Featured = mongoose.model('featured', { 
-  text: String,
+  text: { type: String, required: true, minlength: 1},
   user: String,
-  username: String
+  username: String,
+  deactivated: { type: Boolean, default: false},
+  created: { type: Date, default: Date.now }
 });
 
 var Sports = mongoose.model('sport', { 
-  text: String,
+  text: { type: String, required: true, minlength: 1},
   user: String,
-  username: String
+  username: String,
+  deactivated: { type: Boolean, default: false},
+  created: { type: Date, default: Date.now }
 });
 
 var Music = mongoose.model('music', { 
-  text: String,
+  text: { type: String, required: true, minlength: 1},
   user: String,
-  username: String
+  username: String,
+  deactivated: { type: Boolean, default: false},
+  created: { type: Date, default: Date.now }
 });
 
 app.use(express.static(__dirname + '/public'));
 
 
 app.get('/featuredshouts', function(req, res, next) {
-  db.collection('featureds', function(err, featuredsCollection) {
-    featuredsCollection.find().toArray(function(err, featured) {
-      console.log(featured);
-      return res.json(featured);
-    });
+
+  Featured.find({deactivated: false})
+  .sort('-created')
+  .limit(10)
+  .exec (function(err, featured) {
+    return res.json(featured);
   });
+  // db.collection('featureds', function(err, featuredsCollection) {
+  //   featuredsCollection.find({deactivated: false}).toArray(function(err, featured) {
+  //     console.log(featured);
+  //     return res.json(featured);
+  //   });
+  // });
 });
 
 
 app.get('/sportsshouts', function(req, res, next) {
-  db.collection('sports', function(err, sportsCollection) {
-    sportsCollection.find().toArray(function(err, sports) {
-      console.log(sports);
-      return res.json(sports);
-    });
+
+  Sports.find({deactivated: false}) 
+  .sort('-created')
+  .limit(10)
+  .exec (function(err, sports){
+    return res.json(sports);
   });
+  // db.collection('sports', function(err, sportsCollection) {
+  //   sportsCollection.find().toArray(function(err, sports) {
+  //     console.log(sports);
+  //     return res.json(sports);
+  //   });
+  // });
 });
 
 app.get('/musicshouts', function(req, res, next) {
-  db.collection('musics', function(err, musicsCollection) {
-    musicsCollection.find().toArray(function(err, music) {
-      console.log(music);
-      return res.json(music);
-    });
+  Music.find({deactivated: false})
+  .sort('-created')
+  .limit(10)
+  .exec (function(err, music){
+    return res.json(music);
   });
+  // db.collection('musics', function(err, musicsCollection) {
+  //   musicsCollection.find().toArray(function(err, music) {
+  //     console.log(music);
+  //     return res.json(music);
+  //   });
+  // });
 });    
 
 app.post('/featuredshouts', function(req, res, next){
@@ -88,7 +114,7 @@ app.post('/featuredshouts', function(req, res, next){
   console.log(req.body);
 
   // db.collection('featured', function(err, featuredCollection) {
-    
+
     var newFeatured = new Featured({ 
       text: req.body.newShout,
       user: user._id,
@@ -102,11 +128,12 @@ app.post('/featuredshouts', function(req, res, next){
     //   username: user.username
     // };
 
-    if (req.body.newShout.length < 1) {
-      return res.status(400).send('Shouts cannot be blank');
-    }
+    // if (req.body.newShout.length < 1) {
+    //   return res.status(400).send('Shouts cannot be blank');
+    // }
 
     newFeatured.save(function(err) {
+      if (err) return res.status(400).send(err);
       return res.send();
     });
 
@@ -124,21 +151,24 @@ app.post('/sportsshouts', function(req, res, next){
 
   console.log(token);
   console.log(req.body);
-    
-    var newSport = new Sports({ 
-      text: req.body.sportsShout,
-      user: user._id,
-      username: user.username 
-    });
 
+  var newSport = new Sports({ 
+    text: req.body.sportsShout,
+    user: user._id,
+    username: user.username 
+  });
 
-    if (req.body.sportsShout.length < 1) {
-      return res.status(400).send('Shouts cannot be blank');
-    }
+  newSport.save(function(err) {
+    if (err) return res.status(400).send(err);
+    return res.send();
+  });
+  // if (req.body.sportsShout.length < 1) {
+  //   return res.status(400).send('Shouts cannot be blank');
+  // }
 
-    newSport.save(function(err) {
-      return res.send();
-    });
+  // newSport.save(function(err) {
+  //   return res.send();
+  // });
 
 });
 
@@ -149,22 +179,24 @@ app.post('/musicshouts', function(req, res, next){
 
   console.log(token);
   console.log(req.body);
-    
-    var newMusic = new Music({ 
-      text: req.body.musicShout,
-      user: user._id,
-      username: user.username 
-    });
 
+  var newMusic = new Music({ 
+    text: req.body.musicShout,
+    user: user._id,
+    username: user.username 
+  });
 
-    if (req.body.musicShout.length < 1) {
-      return res.status(400).send('Shouts cannot be blank');
-    }
-
-    newMusic.save(function(err) {
+  newMusic.save(function(err) {
+      if (err) return res.status(400).send(err);
       return res.send();
     });
+  // if (req.body.musicShout.length < 1) {
+  //   return res.status(400).send('Shouts cannot be blank');
+  // }
 
+  // newMusic.save(function(err) {
+  //   return res.send();
+  // });
 });
 
 app.put('/featuredshouts/remove', function(req, res, next){
@@ -172,14 +204,19 @@ app.put('/featuredshouts/remove', function(req, res, next){
   var token = req.headers.authorization;
   var user = jwt.decode(token, JWT_SECRET);
 
-  db.collection('featureds', function(err, featuredCollection) {
-    var shoutId = req.body.shout._id;
+  var shoutId = req.body.shout._id;
 
-    featuredCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
-
-      return res.send();
-    });
+  Featured.update({_id: shoutId, user: user._id}, {$set: {deactivated: true}}, function(err) {
+    return res.send();
   });
+  // db.collection('featureds', function(err, featuredCollection) {
+  //   var shoutId = req.body.shout._id;
+
+  //   featuredCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
+
+  //     return res.send();
+  //   });
+  // });
 });
 
 app.put('/sportsshouts/remove', function(req, res, next){
@@ -187,14 +224,19 @@ app.put('/sportsshouts/remove', function(req, res, next){
   var token = req.headers.authorization;
   var user = jwt.decode(token, JWT_SECRET);
 
-  db.collection('sports', function(err, sportsCollection) {
-    var shoutId = req.body.shout._id;
+  var shoutId = req.body.shout._id;
 
-    sportsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
-
-      return res.send();
-    });
+  Sports.update({_id: shoutId, user: user._id}, {$set: {deactivated: true}}, function(err) {
+    return res.send();
   });
+  // db.collection('sports', function(err, sportsCollection) {
+  //   var shoutId = req.body.shout._id;
+
+  //   sportsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
+
+  //     return res.send();
+  //   });
+  // });
 });
 
 
@@ -203,14 +245,19 @@ app.put('/musicshouts/remove', function(req, res, next){
   var token = req.headers.authorization;
   var user = jwt.decode(token, JWT_SECRET);
 
-  db.collection('musics', function(err, musicsCollection) {
-    var shoutId = req.body.shout._id;
+  var shoutId = req.body.shout._id;
 
-    musicsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
-
-      return res.send();
-    });
+  Music.update({_id: shoutId, user: user._id}, {$set: {deactivated: true}}, function(err) {
+    return res.send();
   });
+  // db.collection('musics', function(err, musicsCollection) {
+  //   var shoutId = req.body.shout._id;
+
+  //   musicsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
+
+  //     return res.send();
+  //   });
+  // });
 });
 
 // no password encrytpion //
@@ -228,31 +275,31 @@ app.post('/users', function(req, res, next){
 });
 
 app.put('/users/login', function(req, res, next){
-  
+
   console.log(req.body);
 
   db.collection('users', function(err, usersCollection) {
 
     usersCollection.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
 
-        if(user) {
-          var mytoken = jwt.encode(user, JWT_SECRET);
-          return res.json({token: mytoken});
-        } 
-        if (err) {
-          return res.status(500).send();
-        }
+      if(user) {
+        var mytoken = jwt.encode(user, JWT_SECRET);
+        return res.json({token: mytoken});
+      } 
+      if (err) {
+        return res.status(500).send();
+      }
 
-        if(!user) {
-          return res.status(400).send();
-        }
+      if(!user) {
+        return res.status(400).send();
+      }
 
-        return res.status(200).send();
-      });
-
+      return res.status(200).send();
     });
-    
+
   });
+
+});
 
 
 // app.post('/users', function(req, res, next){
@@ -272,12 +319,12 @@ app.put('/users/login', function(req, res, next){
 //       });
 //     });
 
-    
+
 //   });
 // });
 
 // app.put('/users/login', function(req, res, next){
-  
+
 //   console.log(req.body);
 
 //   db.collection('users', function(err, usersCollection) {
@@ -295,7 +342,7 @@ app.put('/users/login', function(req, res, next){
 //       });
 
 //     });
-    
+
 //   });
 // });
 
