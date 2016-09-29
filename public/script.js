@@ -18,14 +18,14 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'music.html',
     controller: 'HomeController',
   })
-      // .when('/404', {
-      //   templateUrl: '404.html'
-      // })
-      // .otherwise({
-      //   redirectTo: '/404'
-      // });
+  .when('/404', {
+    templateUrl: '404.html',
+  })
+  .otherwise({
+    redirectTo: '/404'
+  });
 
-      // $locationProvider.html5Mode(true);
+      $locationProvider.html5Mode(true);
     });
 
 

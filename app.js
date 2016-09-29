@@ -120,14 +120,11 @@ app.post('/featuredshouts', function(req, res, next){
       user: user._id,
       username: user.username 
     });
-
-
     // var newShout = {
     //   text: req.body.newShout,
     //   user: user._id,
     //   username: user.username
     // };
-
     // if (req.body.newShout.length < 1) {
     //   return res.status(400).send('Shouts cannot be blank');
     // }
@@ -136,7 +133,6 @@ app.post('/featuredshouts', function(req, res, next){
       if (err) return res.status(400).send(err);
       return res.send();
     });
-
     // featuredCollection.insert(newShout, {w:1}, function(err) {
     //   return res.send();
     // });
@@ -165,7 +161,6 @@ app.post('/sportsshouts', function(req, res, next){
   // if (req.body.sportsShout.length < 1) {
   //   return res.status(400).send('Shouts cannot be blank');
   // }
-
   // newSport.save(function(err) {
   //   return res.send();
   // });
@@ -193,7 +188,6 @@ app.post('/musicshouts', function(req, res, next){
   // if (req.body.musicShout.length < 1) {
   //   return res.status(400).send('Shouts cannot be blank');
   // }
-
   // newMusic.save(function(err) {
   //   return res.send();
   // });
@@ -211,9 +205,7 @@ app.put('/featuredshouts/remove', function(req, res, next){
   });
   // db.collection('featureds', function(err, featuredCollection) {
   //   var shoutId = req.body.shout._id;
-
   //   featuredCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
-
   //     return res.send();
   //   });
   // });
@@ -231,9 +223,7 @@ app.put('/sportsshouts/remove', function(req, res, next){
   });
   // db.collection('sports', function(err, sportsCollection) {
   //   var shoutId = req.body.shout._id;
-
   //   sportsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
-
   //     return res.send();
   //   });
   // });
@@ -252,9 +242,7 @@ app.put('/musicshouts/remove', function(req, res, next){
   });
   // db.collection('musics', function(err, musicsCollection) {
   //   var shoutId = req.body.shout._id;
-
   //   musicsCollection.remove({_id: ObjectId(shoutId), user: user._id}, {w:1}, function(err, result) {
-
   //     return res.send();
   //   });
   // });
@@ -296,14 +284,10 @@ app.put('/users/login', function(req, res, next){
 
       return res.status(200).send();
     });
-
   });
-
 });
 
-
 // app.post('/users', function(req, res, next){
-
 //   db.collection('users', function(err, usersCollection) {
 //     bcrypt.genSalt(10, function(err, salt) {
 //       console.log(salt);
@@ -318,33 +302,28 @@ app.put('/users/login', function(req, res, next){
 //         });
 //       });
 //     });
-
-
 //   });
 // });
 
 // app.put('/users/login', function(req, res, next){
-
 //   console.log(req.body);
-
 //   db.collection('users', function(err, usersCollection) {
-
 //     usersCollection.findOne({username: req.body.username}, function(err, user) {
-
 //       bcrypt.compare(req.body.password, user.password, function(err, result){
 //         if(result) {
 //           var mytoken = jwt.encode(user, JWT_SECRET);
-
 //           return res.json({token: mytoken});
 //         } else {
 //           return res.status(400).send
 //         }
 //       });
-
 //     });
-
 //   });
 // });
+
+app.get('*', function(req, res, next){
+  return res.redirect('/#' + req.originalUrl);
+});
 
 var port = process.env.PORT || 1337;
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="myShoutBox">
 <head>
+  <base href="/">
   <title>myShoutBox</title>
   <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -14,17 +15,17 @@
   <div id="background">
     <div class="pull-right" ng-hide="currentUser">
       <div class="logoutText">
-        <a href="#/">Login</a>
+        <a href="/">Login</a>
       </div>
     </div>
 
     <div class="pull-right" ng-show="currentUser">
       <div class="logoutText">
-      <a href="#/" ng-click="logout()">Logout</a>
+      <a href="/" ng-click="logout()">Logout</a>
       </div>
     </div>
     <image id="shoutIcon" src="image/shouticonfinal.png">
-      <h1 id="pageTitle"><a href="#/">myShoutBox</a></h1>
+      <h1 id="pageTitle"><a href="/">myShoutBox</a></h1>
     </div>
     
     <div class="navbar-default" id="" style="height: 75px" role="navigation">
@@ -37,9 +38,9 @@
       </div>
       <div class="navbar-right">
       <ul class="nav navbar-nav" id="navbarSelect">
-        <li class="text-center naviList"><a class="navText" href="#/">Featured</a></li>
-        <li class="text-center naviList"><a class="navText" href="#/sports">Sports</a></li>
-        <li class="text-center naviList"><a class="navText" id="musicNav" href="#/music">Music</a></li>
+        <li class="text-center naviList"><a class="navText" href="/">Featured</a></li>
+        <li class="text-center naviList"><a class="navText" href="/sports">Sports</a></li>
+        <li class="text-center naviList"><a class="navText" id="musicNav" href="/music">Music</a></li>
       </ul>
       </div>
     </div>

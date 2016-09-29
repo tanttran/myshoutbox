@@ -105,6 +105,14 @@
   min-height: 1000px;
 }
 
+/*.error404 {
+  background-image: url("../image/404error.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 500px;
+}*/
+
 .featuredSection {
   background-image: url("../image/loginbackground.jpg");
   background-position: center center;
@@ -132,6 +140,7 @@
 }
 
 #joinToday {
+  margin-left: 700px;
   margin-top: 100px;
   color: #ffffff;
 }
