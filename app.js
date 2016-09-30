@@ -20,13 +20,13 @@ var JWT_SECRET = 'shoutBox';
 
 
 
-var db = null;
-MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
-  if(!err) {
-    console.log("MONGODB connected");
-    db = dbconn;
-  }
-});
+// var db = null;
+// MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
+//   if(!err) {
+//     console.log("MONGODB connected");
+//     db = dbconn;
+//   }
+// });
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox");
 
@@ -51,6 +51,12 @@ var Music = mongoose.model('music', {
   user: String,
   username: String,
   deactivated: { type: Boolean, default: false},
+  created: { type: Date, default: Date.now }
+});
+
+var User = mongoose.model('user', { 
+  username: String,
+  password: String,
   created: { type: Date, default: Date.now }
 });
 
@@ -251,24 +257,35 @@ app.put('/musicshouts/remove', function(req, res, next){
 // no password encrytpion //
 
 app.post('/users', function(req, res, next){
-  db.collection('users', function(err, usersCollection) {
-    var newUser = {
-      username: req.body.username,
-      password: req.body.password
-    };
-    usersCollection.insert(newUser, {w:1}, function(err) {
-      return res.send();
-    });
+
+  var newUser = new User({ 
+    username: req.body.username,
+    password: req.body.password 
   });
+
+  newUser.save(function(err) {
+    if (err) return res.status(400).send(err);
+    return res.send();
+  });
+  // db.collection('users', function(err, usersCollection) {
+  //   var newUser = {
+  //     username: req.body.username,
+  //     password: req.body.password
+  //   };
+  //   usersCollection.insert(newUser, {w:1}, function(err) {
+  //     return res.send();
+  //   });
+  // });
 });
 
-app.put('/users/login', function(req, res, next){
+app.put('/users/login', function(req, res, next) {
 
   console.log(req.body);
 
-  db.collection('users', function(err, usersCollection) {
+  // db.collection('users', function(err, usersCollection) {
 
-    usersCollection.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
+  //   usersCollection.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
+    User.find({username: req.body.username, password: req.body.password}, function(err, user) {
 
       if(user) {
         var mytoken = jwt.encode(user, JWT_SECRET);
@@ -285,7 +302,7 @@ app.put('/users/login', function(req, res, next){
       return res.status(200).send();
     });
   });
-});
+// });
 
 // app.post('/users', function(req, res, next){
 //   db.collection('users', function(err, usersCollection) {

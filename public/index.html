@@ -12,21 +12,60 @@
 
 </head>
 <body ng-controller="HomeController">
+
   <div id="background">
-    <div class="pull-right" ng-hide="currentUser">
-      <div class="logoutText">
-        <a href="/">Login</a>
+    <div class="col-md-4">
+      <div>
+        <image id="shoutIcon" src="image/shouticonfinal.png">
+        </div>
+        <div>
+          <h1 id="pageTitle"><a href="/">myShoutBox</a></h1>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="slogan">
+          <h2 id="mySlogan">What's Happening</h2>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="pull-right" ng-hide="currentUser">
+          <div class="logoutText">
+            <a href="/">Login</a>
+          </div>
+        </div>
+        <div class="pull-right" ng-show="currentUser">
+          <div class="logoutText">
+            <a href="/" ng-click="logout()">Logout</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="pull-right" ng-show="currentUser">
+    <!-- <div class="pull-right" ng-hide="currentUser">
+      <div class="logoutText">
+        <a href="/">Login</a>
+      </div>
+    </div> -->
+
+    <!-- <div class="pull-right" ng-show="currentUser">
       <div class="logoutText">
       <a href="/" ng-click="logout()">Logout</a>
       </div>
-    </div>
+    </div> -->
+
+    <!-- <div class="slogan">
+    <h2 id="mySlogan">What's Happening</h2>
+  </div> -->
+
+    <!-- <div>
     <image id="shoutIcon" src="image/shouticonfinal.png">
-      <h1 id="pageTitle"><a href="/">myShoutBox</a></h1>
     </div>
+    <div>
+      <h1 id="pageTitle"><a href="/">myShoutBox</a></h1>
+    </div> -->
+
+
     
     <div class="navbar-default" id="" style="height: 75px" role="navigation">
       <div class="navbar-header">
@@ -37,14 +76,14 @@
         </button>
       </div>
       <div class="navbar-right">
-      <ul class="nav navbar-nav" id="navbarSelect">
-        <li class="text-center naviList"><a class="navText" href="/">Featured</a></li>
-        <li class="text-center naviList"><a class="navText" href="/sports">Sports</a></li>
-        <li class="text-center naviList"><a class="navText" id="musicNav" href="/music">Music</a></li>
-      </ul>
+        <ul class="nav navbar-nav" id="navbarSelect">
+          <li class="text-center naviList"><a class="navText" href="/">Featured</a></li>
+          <li class="text-center naviList"><a class="navText" href="/sports">Sports</a></li>
+          <li class="text-center naviList"><a class="navText" id="musicNav" href="/music">Music</a></li>
+        </ul>
       </div>
     </div>
-  
+
 
     <div ng-view></div>
   </body>
