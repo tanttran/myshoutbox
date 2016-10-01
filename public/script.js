@@ -37,9 +37,9 @@ app.run(function($rootScope, $cookies) {
   if ($cookies.get('token') && $cookies.get('currentUser')) {
     $rootScope.token = $cookies.get('token');
     $rootScope.currentUser = $cookies.get('currentUser');
-
   }
 });
+
 
 app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) {
 
@@ -219,6 +219,7 @@ app.controller('SignupController', function ($scope, $http) {
   };
 
 });
+
 
 app.controller('ResetController', function ($scope, $http) {
   

@@ -1,3 +1,9 @@
+ul {
+  margin-left: 300px;
+
+}
+
+
 .feed {
   margin-left: 100px;
   margin-right: 100px;
@@ -54,14 +60,19 @@
   margin-top: 100px;
 }
 
+.something {
+  margin-left: 20px;
+}
 
-/*.naviList:hover {
-  border-bottom: 5px solid #14c39c;
 
-}*/
+.naviList:hover {
+  border-bottom: 10px solid #14c39c;
 
-.naviList {
-  padding-right: 45px;
+}
+
+.navbar-nav li a {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 
@@ -69,9 +80,7 @@
   font-weight: bold;
   font-size: 24px;
   text-align: center;
-  margin-top: 20px;
-  padding-right: 60px;
-  padding-left: 60px;
+  margin-top: 15px;
   
 }
 
@@ -138,6 +147,26 @@
   margin-top: 100px;
 }
 
+#featuredNav {
+  width: 200px;
+  border-right: 1px solid;
+  border-left: 1px solid;
+}
+
+#sportNav {
+  width: 200px;
+  border-right: 1px solid;
+}
+
+#musicNav {
+  width: 200px;
+  border-right: 1px solid;
+}
+
+#navbarSelect {
+  margin-left: 700px;
+}
+
 #resetbg {
   background-image: url("../image/resetbg.jpg");
   background-position: center center;
@@ -150,14 +179,6 @@
   color: #ffffff;
 }
 
-#musicNav {
-  padding-right: 75px;
-}
-
-#featuredNav {
-  
-  height: 75px;
-}
 
 #joinToday {
   color: #ffffff;
