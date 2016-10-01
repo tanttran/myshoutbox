@@ -22,14 +22,13 @@ io.on('connection', function (socket) {
 
 server.listen(8000);
 
-
-var JWT_SECRET = 'shoutBox';
-
 app.use(bodyParser.json());
 
 app.use(morgan(':method :url :response-time'));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku_w14jv4tx:ru9k9bcfssn3ub3g28jr8lp27n@ds041526.mlab.com:41526/heroku_w14jv4tx");
+var JWT_SECRET = 'shoutBox';
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku_f530sxp2:cht81alfli2evcs0027pfeaod3@ds041939.mlab.com:41939/heroku_f530sxp2");
 
 var Featured = mongoose.model('featured', { 
   text: { type: String, required: true, minlength: 1},
