@@ -43,25 +43,25 @@ app.run(function($rootScope, $cookies) {
 
 app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) {
 
-  var socket = io.connect('http://tanttran-myshoutbox.herokuapp.com');
-  socket.on('connect', function(socket){
-    console.log('Connected');
-  });
+  // var socket = io.connect('http://tanttran-myshoutbox.herokuapp.com');
+  // socket.on('connect', function(socket){
+  //   console.log('Connected');
+  // });
 
-  socket.on('newFeatured', function(data) {
-    getShout();
-    console.log('there\'s a new featured shout');
-  });
+  // socket.on('newFeatured', function(data) {
+  //   getShout();
+  //   console.log('there\'s a new featured shout');
+  // });
 
-  socket.on('newSport', function(data) {
-    getSportsShout();
-    console.log('there\'s a new sports shout');
-  });
+  // socket.on('newSport', function(data) {
+  //   getSportsShout();
+  //   console.log('there\'s a new sports shout');
+  // });
 
-  socket.on('newMusic', function(data) {
-    getMusicShout();
-    console.log('there\'s a new music shout');
-  });
+  // socket.on('newMusic', function(data) {
+  //   getMusicShout();
+  //   console.log('there\'s a new music shout');
+  // });
 
   $scope.myShoutLogin = function() {
 

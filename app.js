@@ -11,16 +11,16 @@ var mongoose = require('mongoose');
 var path = require('path');
 
 
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+// var server = require('http').Server(app);
+// var io = require('socket.io')(server);
 
 
-io.on('connection', function (socket) {
-  console.log('new client connected');
-});
+// io.on('connection', function (socket) {
+//   console.log('new client connected');
+// });
 
 
-server.listen(80);
+// server.listen(80);
 
 app.use(bodyParser.json());
 
@@ -112,7 +112,7 @@ app.post('/featuredshouts', function(req, res, next){
 
     newFeatured.save(function(err) {
       if (err) return res.status(400).send(err);
-      io.emit('newFeatured');
+      // io.emit('newFeatured');
       return res.send();
     });
 
@@ -134,7 +134,7 @@ app.post('/sportsshouts', function(req, res, next){
 
   newSport.save(function(err) {
     if (err) return res.status(400).send(err);
-    io.emit('newSport');
+    // io.emit('newSport');
     return res.send();
   });
 
@@ -156,7 +156,7 @@ app.post('/musicshouts', function(req, res, next){
 
   newMusic.save(function(err) {
       if (err) return res.status(400).send(err);
-      io.emit('newMusic');
+      // io.emit('newMusic');
       return res.send();
     });
  

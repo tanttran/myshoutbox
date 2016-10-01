@@ -9,7 +9,7 @@
   <script type="text/javascript" src="angular-route.js"></script>
   <script type="text/javascript" src="angular-cookies.js"></script>
   <script type="text/javascript" src="script.js"></script>
-  <script src="http://tanttran-myshoutbox.herokuapp.com/socket.io/socket.io.js"></script>
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
 </head>
 <body ng-controller="HomeController">
@@ -42,6 +42,31 @@
         </div>
       </div>
     </div>
+
+    <!-- <div class="pull-right" ng-hide="currentUser">
+      <div class="logoutText">
+        <a href="/">Login</a>
+      </div>
+    </div> -->
+
+    <!-- <div class="pull-right" ng-show="currentUser">
+      <div class="logoutText">
+      <a href="/" ng-click="logout()">Logout</a>
+      </div>
+    </div> -->
+
+    <!-- <div class="slogan">
+    <h2 id="mySlogan">What's Happening</h2>
+  </div> -->
+
+    <!-- <div>
+    <image id="shoutIcon" src="image/shouticonfinal.png">
+    </div>
+    <div>
+      <h1 id="pageTitle"><a href="/">myShoutBox</a></h1>
+    </div> -->
+
+
     
     <div class="navbar-default" id="" style="height: 75px" role="navigation">
       <div class="navbar-header">
