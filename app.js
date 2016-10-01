@@ -24,7 +24,7 @@ app.use(morgan(':method :url :response-time'));
 
 var JWT_SECRET = 'shoutBox';
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku_f530sxp2:cht81alfli2evcs0027pfeaod3@ds041939.mlab.com:41939/heroku_f530sxp2");
 
 var Featured = mongoose.model('featured', { 
   text: { type: String, required: true, minlength: 1},
