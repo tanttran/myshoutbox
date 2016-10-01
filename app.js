@@ -20,7 +20,7 @@ io.on('connection', function (socket) {
 });
 
 
-server.listen(8000);
+server.listen(80);
 
 app.use(bodyParser.json());
 
