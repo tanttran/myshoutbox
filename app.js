@@ -54,9 +54,10 @@ var Music = mongoose.model('music', {
   created: { type: Date, default: Date.now }
 });
 
-var User = mongoose.model('user', { 
+var Users = mongoose.model('users', { 
   username: String,
   password: String,
+  email: String,
   created: { type: Date, default: Date.now }
 });
 
@@ -258,15 +259,17 @@ app.put('/musicshouts/remove', function(req, res, next){
 
 app.post('/users', function(req, res, next){
 
-  var newUser = new User({ 
+  var newUser = new Users({ 
     username: req.body.username,
-    password: req.body.password 
+    password: req.body.password,
+    email: req.body.email 
   });
 
   newUser.save(function(err) {
     if (err) return res.status(400).send(err);
     return res.send();
   });
+
   // db.collection('users', function(err, usersCollection) {
   //   var newUser = {
   //     username: req.body.username,
@@ -283,9 +286,9 @@ app.put('/users/login', function(req, res, next) {
   console.log(req.body);
 
   // db.collection('users', function(err, usersCollection) {
-
   //   usersCollection.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
-    User.find({username: req.body.username, password: req.body.password}, function(err, user) {
+    
+    Users.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
 
       if(user) {
         var mytoken = jwt.encode(user, JWT_SECRET);
@@ -303,6 +306,37 @@ app.put('/users/login', function(req, res, next) {
     });
   });
 // });
+
+
+app.put('/users/resetPassword', function(req, res, next){
+  console.log(req.body);
+
+  Users.findOne({email: req.body.email}, function(err, user) {
+
+    if (user) {
+      // reset their password
+      var newPassword = Math.random().toString(36).substr(2, 5);
+      console.log('New Password: ' + newPassword);
+
+      Users.update({email: req.body.email}, {$set: {password: newPassword}}, function(){
+
+        return res.send();
+      });
+    } 
+    if(!user){
+      return res.status(400).send();
+    }
+    // else {
+    //   //send back error because we couldnt find a user with that email
+    //   return res.status(400).send();
+    // }
+
+  });
+
+});
+
+
+
 
 // app.post('/users', function(req, res, next){
 //   db.collection('users', function(err, usersCollection) {

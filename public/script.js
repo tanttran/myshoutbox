@@ -18,6 +18,10 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'music.html',
     controller: 'HomeController',
   })
+  .when('/reset', {
+    templateUrl: 'reset.html',
+    controller: 'ResetController',
+  })
   .when('/404', {
     templateUrl: '404.html',
   })
@@ -176,6 +180,7 @@ app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) 
 
   getMusicShout();
 
+
 });
 
 
@@ -184,7 +189,8 @@ app.controller('SignupController', function ($scope, $http) {
   $scope.submitShoutSignup = function(){
     var newUser = {
       username: $scope.username,
-      password: $scope.password
+      password: $scope.password,
+      email: $scope.email
     };
     $http.post('/users', newUser).then(function() {
       alert('success');
@@ -192,6 +198,19 @@ app.controller('SignupController', function ($scope, $http) {
 
   };
 
+});
+
+app.controller('ResetController', function ($scope, $http) {
+  
+  $scope.resetPassword = function(){
+    
+    $http.put('/users/resetPassword', {email: $scope.resetEmail}).then(function(res) {
+      alert('Reset Password Sent');
+
+  }, function(err) {
+    alert('There are no user with that Email');
+  });
+};
 });
 
 

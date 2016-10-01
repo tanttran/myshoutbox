@@ -130,6 +130,26 @@
   color: #ffffff;
 }
 
+.signupAll {
+  margin-left: 15px;
+}
+
+.emailReset {
+  margin-top: 100px;
+}
+
+#resetbg {
+  background-image: url("../image/resetbg.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 1000px;
+}
+
+#resetPassword {
+  color: #ffffff;
+}
+
 #musicNav {
   padding-right: 75px;
 }
@@ -140,25 +160,10 @@
 }
 
 #joinToday {
-  margin-left: 700px;
-  margin-top: 100px;
   color: #ffffff;
 }
 
-#signupUsername {
-  margin-left: 720px;
-}
-
-#signupPassword {
-  margin-left: 720px;
-}
-
-#signupEmail {
-  margin-left: 720px;
-}
-
 #signupButton {
-  margin-left: 720px;
   background-color: #f5f8fa;
 }
 

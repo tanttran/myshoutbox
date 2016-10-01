@@ -1,23 +1,25 @@
 <div class="row signupSection">
-  <div class="col-md-12">
-    <h2 id="joinToday">Join myShoutBox today</h2>
-    <br>
-    <div class="center-block">
-      <form class="" ng-submit="submitShoutSignup()">
-      <div class="input-group" id="signupUsername">
-          <input class="form-control" type="text" size="50" placeholder="Username" ng-model="username">
-        </div>
-        <br>
-        <div class="input-group" id="signupPassword">
-          <input class="form-control" type="password" size="30" placeholder="Password" ng-model="password">
-        </div>
-        <br>
-        <div class="input-group" id="signupEmail">
-          <input class="form-control" type="email" size="30" placeholder="Email" ng-model="email">
-        </div>
-        <br><br>
-        <button class="btn btn-default btn-lg input-group" id="signupButton" type="submit">Sign up</button>
-      </form>
+  <div class="container">
+    <div class="col-md-4 col-md-offset-4">
+      <h2 id="joinToday">Join myShoutBox today</h2>
+      <br>
+      <div class="signupAll">
+        <form class="" ng-submit="submitShoutSignup()">
+          <div class="input-group" id="signupUsername">
+            <input class="form-control" type="text" size="50" placeholder="Username" ng-model="username">
+          </div>
+          <br>
+          <div class="input-group" id="signupPassword">
+            <input class="form-control" type="password" size="30" placeholder="Password" ng-model="password">
+          </div>
+          <br>
+          <div class="input-group" id="signupEmail">
+            <input class="form-control" type="email" size="30" placeholder="Email" ng-model="email">
+          </div>
+          <br><br>
+          <button class="btn btn-default btn-lg input-group" id="signupButton" type="submit">Sign up</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
