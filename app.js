@@ -20,7 +20,7 @@ io.on('connection', function (socket) {
 });
 
 
-server.listen(process.env.PORT || 8000);
+server.listen(process.env.PORT || 80);
 
 
 var JWT_SECRET = 'shoutBox';
