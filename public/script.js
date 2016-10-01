@@ -43,7 +43,7 @@ app.run(function($rootScope, $cookies) {
 
 app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) {
 
-  // var socket = io.connect('http://tanttran-myshoutbox.herokuapp.com');
+  // var socket = io.connect('http://localhost:8000');
   // socket.on('connect', function(socket){
   //   console.log('Connected');
   // });
