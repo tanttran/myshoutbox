@@ -8,17 +8,27 @@ var jwt = require('jwt-simple');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 
-
 var path = require('path');
-app.use(bodyParser.json());
 
-app.use(morgan(':method :url :response-time'));
-// app.use(morgan('combined'));
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+
+io.on('connection', function (socket) {
+  console.log('new client connected');
+});
+
+
+server.listen(8000);
 
 
 var JWT_SECRET = 'shoutBox';
 
+app.use(bodyParser.json());
 
+app.use(morgan(':method :url :response-time'));
+// app.use(morgan('combined'));
 
 // var db = null;
 // MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
@@ -138,6 +148,7 @@ app.post('/featuredshouts', function(req, res, next){
 
     newFeatured.save(function(err) {
       if (err) return res.status(400).send(err);
+      io.emit('newFeatured');
       return res.send();
     });
     // featuredCollection.insert(newShout, {w:1}, function(err) {
@@ -163,6 +174,7 @@ app.post('/sportsshouts', function(req, res, next){
 
   newSport.save(function(err) {
     if (err) return res.status(400).send(err);
+    io.emit('newSport');
     return res.send();
   });
   // if (req.body.sportsShout.length < 1) {
@@ -190,6 +202,7 @@ app.post('/musicshouts', function(req, res, next){
 
   newMusic.save(function(err) {
       if (err) return res.status(400).send(err);
+      io.emit('newMusic');
       return res.send();
     });
   // if (req.body.musicShout.length < 1) {
@@ -314,11 +327,12 @@ app.put('/users/resetPassword', function(req, res, next){
   Users.findOne({email: req.body.email}, function(err, user) {
 
     if (user) {
-      // reset their password
       var newPassword = Math.random().toString(36).substr(2, 5);
       console.log('New Password: ' + newPassword);
 
       Users.update({email: req.body.email}, {$set: {password: newPassword}}, function(){
+
+        // put code here for sending email containing new password
 
         return res.send();
       });
@@ -326,11 +340,6 @@ app.put('/users/resetPassword', function(req, res, next){
     if(!user){
       return res.status(400).send();
     }
-    // else {
-    //   //send back error because we couldnt find a user with that email
-    //   return res.status(400).send();
-    // }
-
   });
 
 });

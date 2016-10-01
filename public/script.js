@@ -43,6 +43,26 @@ app.run(function($rootScope, $cookies) {
 
 app.controller('HomeController', function ($rootScope, $scope, $http, $cookies) {
 
+  var socket = io.connect('http://localhost:8000');
+  socket.on('connect', function(socket){
+    console.log('Connected');
+  });
+
+  socket.on('newFeatured', function(data) {
+    getShout();
+    console.log('there\'s a new featured shout');
+  });
+
+  socket.on('newSport', function(data) {
+    getSportsShout();
+    console.log('there\'s a new sports shout');
+  });
+
+  socket.on('newMusic', function(data) {
+    getMusicShout();
+    console.log('there\'s a new music shout');
+  });
+
   $scope.myShoutLogin = function() {
 
     $http.put('/users/login', {username: $scope.username, password: $scope.password})
