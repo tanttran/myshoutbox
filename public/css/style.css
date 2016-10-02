@@ -1,8 +1,7 @@
-ul {
+/*ul {
   margin-left: 300px;
 
-}
-
+}*/
 
 .feed {
   margin-left: 100px;
@@ -10,6 +9,11 @@ ul {
   margin-top: 100px;
   /*border: 1px solid black;*/
   min-height: 1000px;
+}
+
+.slogan {
+  text-align: center;
+  padding-top: 75px;
 }
 
 .shoutBox {
@@ -47,6 +51,12 @@ ul {
   width: 100%;
 }
 
+.newMusicShout {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
 .loginArea {
 
   margin-left: 100px;
@@ -58,10 +68,6 @@ ul {
   margin-left: 100px;
   margin-right: 100px;
   margin-top: 100px;
-}
-
-.something {
-  margin-left: 20px;
 }
 
 
@@ -147,34 +153,34 @@ ul {
   margin-top: 100px;
 }
 
-.active {
-  border-bottom: 10px solid red;
-}
-
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   background-color: #f8f8f8;
+  color: red;
 }
-
 
 .naviList:hover {
   border-bottom: 10px solid red;
 
 }
 
+#mySlogan {
+  font-size: 40px;
+}
+
 #featuredNav {
   width: 200px;
-  border-right: 1px solid;
-  border-left: 1px solid;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 
 #sportNav {
   width: 200px;
-  border-right: 1px solid;
+  border-right: 1px solid black;
 }
 
 #musicNav {
   width: 200px;
-  border-right: 1px solid;
+  border-right: 1px solid black;
 }
 
 #navbarSelect {
@@ -243,9 +249,10 @@ ul {
 
 #pageTitle a {
   margin-top: 120px;
-  margin-left: 100px;
+  margin-left: 135px;
   font-size: 44px;
-  color: #fff;
+  color: #777;
+  text-decoration: none;
 }
 
 #loginButton {

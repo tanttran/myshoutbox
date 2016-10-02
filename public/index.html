@@ -4,12 +4,14 @@
   <base href="/">
   <title>myShoutBox</title>
   <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+  <!-- <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css"> -->
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="angular.min.js"></script>
   <script type="text/javascript" src="angular-route.js"></script>
   <script type="text/javascript" src="angular-cookies.js"></script>
   <script type="text/javascript" src="/js/script.js"></script>
-  <script src="jquery-3.1.1.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  
   <!-- <script src="http://tanttran-myshoutbox.herokuapp.com/socket.io/socket.io.js"></script> -->
   <!-- <script src="http://localhost:8000/socket.io/socket.io.js"></script> -->
 
@@ -27,7 +29,7 @@
       </div>
       <div class="col-md-4">
         <div class="slogan">
-          <h2 id="mySlogan">What's Happening</h2>
+          <h2 id="mySlogan">What's Happening?</h2>
         </div>
       </div>
 
@@ -47,15 +49,14 @@
     
     <div class="navbar-default" id="" style="height: 70px" role="navigation">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
       </div>
       
-      <div class="navbar">
-      <div id="something">
+      <div class="navbar-collapse collapse" id="navbar-collapse">
         <ul class="nav navbar-nav shoutList" id="navbarSelect">
           <li class="active naviList"><a class="navText" id="featuredNav"href="/">Featured</a></li>
           <li class="naviList"><a class="navText" id="sportNav"href="/sports">Sports</a></li>
@@ -63,10 +64,31 @@
         </ul>
       </div>
       </div>
-    </div>
 
 
     <div ng-view></div>
+
+
+<div class="col-sm-4 text-center">
+        <h4>&copy;  copyright 2016 myShoutBox</h4>
+        <p>Tan T Tran</p>
+      </div>
+      <div class="col-sm-4 text-center">
+        <h4>Built using Technologies</h4>
+        <p>MongoDB</p>
+        <p>ExpressJS</p>
+        <p>AngularJS</p>
+        <p>Node.js</p>
+      </div>
+      <div class="col-sm-4 text-center">
+        <h4>Contact Us</h4>
+        <a href="#"><i class="fa fa-facebook fa-2x"></i></a><br>
+        <a href="#"><i class="fa fa-twitter fa-2x"></i></a><br>
+        <a href="#"><i class="fa fa-instagram fa-2x"></i></a><br>
+        <a href="#"><i class="fa fa-linkedin fa-2x"></i></a>
+      </div>    
+    <script src="jquery-3.1.1.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="/js/jquery.js"></script>
   </body>
   </html>
