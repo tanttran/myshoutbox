@@ -147,6 +147,20 @@ ul {
   margin-top: 100px;
 }
 
+.active {
+  border-bottom: 10px solid red;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  background-color: #f8f8f8;
+}
+
+
+.naviList:hover {
+  border-bottom: 10px solid red;
+
+}
+
 #featuredNav {
   width: 200px;
   border-right: 1px solid;

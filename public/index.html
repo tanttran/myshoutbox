@@ -8,7 +8,8 @@
   <script type="text/javascript" src="angular.min.js"></script>
   <script type="text/javascript" src="angular-route.js"></script>
   <script type="text/javascript" src="angular-cookies.js"></script>
-  <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="/js/script.js"></script>
+  <script src="jquery-3.1.1.js"></script>
   <!-- <script src="http://tanttran-myshoutbox.herokuapp.com/socket.io/socket.io.js"></script> -->
   <!-- <script src="http://localhost:8000/socket.io/socket.io.js"></script> -->
 
@@ -55,8 +56,8 @@
       
       <div class="navbar">
       <div id="something">
-        <ul class="nav navbar-nav" id="navbarSelect">
-          <li class="naviList"><a class="navText" id="featuredNav"href="/">Featured</a></li>
+        <ul class="nav navbar-nav shoutList" id="navbarSelect">
+          <li class="active naviList"><a class="navText" id="featuredNav"href="/">Featured</a></li>
           <li class="naviList"><a class="navText" id="sportNav"href="/sports">Sports</a></li>
           <li class="naviList"><a class="navText" id="musicNav" href="/music">Music</a></li>
         </ul>
@@ -66,6 +67,7 @@
 
 
     <div ng-view></div>
+    <script src="/js/jquery.js"></script>
   </body>
   </html>
 
