@@ -42,7 +42,6 @@ app.use(morgan(':method :url :response-time'));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/myshoutbox", function(err, dbconn) {
   if(!err) {
     console.log("MONGOOSE connected");
-    db = dbconn;
   }
 });
 
@@ -78,6 +77,16 @@ var Users = mongoose.model('users', {
 });
 
 app.use(express.static(__dirname + '/public'));
+
+
+var authorized = function (req, res, next) {
+
+  var token = req.headers.authorization;
+  var user = jwt.decode(token, JWT_SECRET);
+  req.user = user;
+  return next ();
+
+};
 
 
 app.get('/featuredshouts', function(req, res, next) {
@@ -128,20 +137,17 @@ app.get('/musicshouts', function(req, res, next) {
   // });
 });    
 
-app.post('/featuredshouts', function(req, res, next){
+app.post('/featuredshouts', authorized, function(req, res, next){
 
-  var token = req.headers.authorization;
-  var user = jwt.decode(token, JWT_SECRET);
-
-  console.log(token);
-  console.log(req.body);
+  // var token = req.headers.authorization;
+  // var user = jwt.decode(token, JWT_SECRET);
 
   // db.collection('featured', function(err, featuredCollection) {
 
     var newFeatured = new Featured({ 
       text: req.body.newShout,
-      user: user._id,
-      username: user.username 
+      user: req.user._id,
+      username: req.user.username 
     });
     // var newShout = {
     //   text: req.body.newShout,
@@ -164,18 +170,15 @@ app.post('/featuredshouts', function(req, res, next){
 
 });
 
-app.post('/sportsshouts', function(req, res, next){
+app.post('/sportsshouts', authorized, function(req, res, next){
 
-  var token = req.headers.authorization;
-  var user = jwt.decode(token, JWT_SECRET);
-
-  console.log(token);
-  console.log(req.body);
+  // var token = req.headers.authorization;
+  // var user = jwt.decode(token, JWT_SECRET);
 
   var newSport = new Sports({ 
     text: req.body.sportsShout,
-    user: user._id,
-    username: user.username 
+    user: req.user._id,
+    username: req.user.username 
   });
 
   newSport.save(function(err) {
@@ -192,22 +195,19 @@ app.post('/sportsshouts', function(req, res, next){
 
 });
 
-app.post('/musicshouts', function(req, res, next){
+app.post('/musicshouts', authorized, function(req, res, next){
 
-  var token = req.headers.authorization;
-  var user = jwt.decode(token, JWT_SECRET);
-
-  console.log(token);
-  console.log(req.body);
+  // var token = req.headers.authorization;
+  // var user = jwt.decode(token, JWT_SECRET);
 
   var newMusic = new Music({ 
     text: req.body.musicShout,
-    user: user._id,
-    username: user.username 
+    user: req.user._id,
+    username: req.user.username 
   });
 
   newMusic.save(function(err) {
-      if (err) return res.status(400).send(err);
+    if (err) return res.status(400).send(err);
       // io.emit('newMusic');
       return res.send();
     });
@@ -219,14 +219,14 @@ app.post('/musicshouts', function(req, res, next){
   // });
 });
 
-app.put('/featuredshouts/remove', function(req, res, next){
+app.put('/featuredshouts/remove', authorized, function(req, res, next){
 
-  var token = req.headers.authorization;
-  var user = jwt.decode(token, JWT_SECRET);
+  // var token = req.headers.authorization;
+  // var user = jwt.decode(token, JWT_SECRET);
 
   var shoutId = req.body.shout._id;
 
-  Featured.update({_id: shoutId, user: user._id}, {$set: {deactivated: true}}, function(err) {
+  Featured.update({_id: shoutId, user: req.user._id}, {$set: {deactivated: true}}, function(err) {
     return res.send();
   });
   // db.collection('featureds', function(err, featuredCollection) {
@@ -237,14 +237,14 @@ app.put('/featuredshouts/remove', function(req, res, next){
   // });
 });
 
-app.put('/sportsshouts/remove', function(req, res, next){
+app.put('/sportsshouts/remove', authorized, function(req, res, next){
 
-  var token = req.headers.authorization;
-  var user = jwt.decode(token, JWT_SECRET);
+  // var token = req.headers.authorization;
+  // var user = jwt.decode(token, JWT_SECRET);
 
   var shoutId = req.body.shout._id;
 
-  Sports.update({_id: shoutId, user: user._id}, {$set: {deactivated: true}}, function(err) {
+  Sports.update({_id: shoutId, user: req.user._id}, {$set: {deactivated: true}}, function(err) {
     return res.send();
   });
   // db.collection('sports', function(err, sportsCollection) {
@@ -256,14 +256,14 @@ app.put('/sportsshouts/remove', function(req, res, next){
 });
 
 
-app.put('/musicshouts/remove', function(req, res, next){
+app.put('/musicshouts/remove', authorized, function(req, res, next){
 
-  var token = req.headers.authorization;
-  var user = jwt.decode(token, JWT_SECRET);
+  // var token = req.headers.authorization;
+  // var user = jwt.decode(token, JWT_SECRET);
 
   var shoutId = req.body.shout._id;
 
-  Music.update({_id: shoutId, user: user._id}, {$set: {deactivated: true}}, function(err) {
+  Music.update({_id: shoutId, user: req.user._id}, {$set: {deactivated: true}}, function(err) {
     return res.send();
   });
   // db.collection('musics', function(err, musicsCollection) {
@@ -277,54 +277,52 @@ app.put('/musicshouts/remove', function(req, res, next){
 // no password encrytpion //
 
 app.post('/users', function(req, res, next){
+  bcrypt.genSalt(10, function(err, salt) {
+    console.log(salt);
+    bcrypt.hash(req.body.password, salt, function(err, hash) {
+      console.log(hash);
 
-  var newUser = new Users({ 
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email 
+      var newUser = new Users({ 
+        username: req.body.username,
+        password: hash,
+        email: req.body.email 
+      });
+
+      newUser.save(function(err) {
+        if (err) return res.status(400).send(err);
+        return res.send();
+      });
+
+    });
   });
-
-  newUser.save(function(err) {
-    if (err) return res.status(400).send(err);
-    return res.send();
-  });
-
-  // db.collection('users', function(err, usersCollection) {
-  //   var newUser = {
-  //     username: req.body.username,
-  //     password: req.body.password
-  //   };
-  //   usersCollection.insert(newUser, {w:1}, function(err) {
-  //     return res.send();
-  //   });
-  // });
 });
+
 
 app.put('/users/login', function(req, res, next) {
 
   console.log(req.body);
 
-  // db.collection('users', function(err, usersCollection) {
-  //   usersCollection.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
-    
-    Users.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
-
-      if(user) {
-        var mytoken = jwt.encode(user, JWT_SECRET);
-        return res.json({token: mytoken});
-      } 
-      if (err) {
-        return res.status(500).send();
-      }
-
-      if(!user) {
-        return res.status(400).send();
-      }
-
-      return res.status(200).send();
+    Users.findOne({username: req.body.username}, function(err, user) {   
+          if(!user) {
+          return res.status(400).send();
+        }   
+        bcrypt.compare(req.body.password, user.password, function(err, isMatch){
+        if(isMatch) {
+          var mytoken = jwt.encode(user, JWT_SECRET);
+          return res.json({token: mytoken});
+        } 
+        if(!isMatch){
+          return res.status(400).send();
+        }
+        if(err) {
+          throw err;
+        } else {
+          return res.status(401).send
+        }
+      });
     });
   });
-// });
+
 
 
 app.put('/users/resetPassword', function(req, res, next){
@@ -379,8 +377,14 @@ app.put('/users/resetPassword', function(req, res, next){
 //         if(result) {
 //           var mytoken = jwt.encode(user, JWT_SECRET);
 //           return res.json({token: mytoken});
+//         } 
+//         if(err){
+//           if (err) throw err;
+//         }
+//         if(!user) {
+//           return res.status(400).send();
 //         } else {
-//           return res.status(400).send
+//           return res.status(401).send
 //         }
 //       });
 //     });
